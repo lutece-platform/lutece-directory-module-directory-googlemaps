@@ -1,0 +1,46 @@
+<#-- container -->
+<div id="${entry.idEntry}_map-container" style="width:100%; height:500px; border:1px solid black; display:none;">
+	<div id="${entry.idEntry}_map-list" style="float:left; width:24%; margin:0; border:0; padding:0;">
+		<div id="${entry.idEntry}_go-up" class="arrow-up"></div>
+		<div id="${entry.idEntry}_elements-list" style="margin-left:9px"></div>
+		<div id="${entry.idEntry}_go-down" class="arrow-down"></div>
+		<div id="${entry.idEntry}_elements-inputs"></div>
+	</div>
+	<div id="${entry.idEntry}_map" style="float:right; width:75%; height:100%; border-left:1px solid black;"></div>
+</div>
+<#-- google API -->
+<#if !gmap_script_imported?exists>
+<#-- import script once only -->
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="js/plugins/directory/modules/googlemaps/directory_gmap.js"></script>
+</#if>
+<script type="text/javascript">
+<#if !gmap_script_imported?exists>
+<#-- execute this script once only -->
+<#-- record_titles ==> record's data [title : value] -->
+var record_titles = new Object(  );
+<#list resource_actions_list as resource_actions>
+	record_titles[${resource_actions.record.idRecord}] =
+		<#list entry_list_search_result as entry>
+				<#assign entryKey=""+entry.idEntry>	
+				"${entry.title} : "
+				<#assign listRecordField=resource_actions.map_id_entry_list_record_field[entryKey] />
+	      		<#if listRecordField?has_content>
+	      			<#list listRecordField as record_field> <#-- libelle -->
+	      				+ "${entry.getHtmlRecordFieldValue( locale,record_field,false)?replace("\"", "\\\"")?replace("\r", "")?replace("\n", "")}"
+	      				<#if  record_field_has_next>
+		    				+ " "
+		     			</#if>
+		     		</#list>
+		     	</#if>
+		     	<#if entry_has_next>
+		     		+ "<br />" +
+     			</#if>
+		</#list>;
+</#list>
+<#assign gmap_script_imported = true /> <#-- markers info are the same for every field -->
+</#if>
+<#-- call gmap_result_list creates the button behaviour -->
+gmap_result_list( ${entry.idEntry} );
+</script>
+<noscript>#i18n{module.directory.googlemaps.javascript.disabled}</noscript>

@@ -1,0 +1,43 @@
+<input type="hidden" id="${entry.idEntry}_map_provider" name="${entry.idEntry}_map_provider" value="${entry.mapProvider.key}"/>
+<div class="form-element" id="${entry.idEntry}_waiting" style="display:none;">
+  <span class="form-label">
+	<label for="">&nbsp;</label>
+  </span>
+  <span class="form-field-column">
+  	#i18n{module.directory.googlemaps.loading}
+  </span>
+</div>
+<div style="float:left; width:45%">
+</div>
+<div id="${entry.idEntry}_gmap" style="float:right; width:45%; height:300px; border:1px solid black;"></div>
+<div style="clear:both;"></div>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="js/plugins/directory/modules/googlemaps/directory_gmap.js"></script>
+<script type="text/javascript">
+	$(document).ready( function (  ) 
+	{
+		/* load when dom is -- ready -- will not "block" page loading */
+		var idEntry = <#if entry.idEntry?has_content>${entry.idEntry}<#else>0</#if>;
+		var x = <#if xField?has_content && xField.value?has_content>${xField.value}<#else>0</#if>;
+		var y = <#if yField?has_content && yField.value?has_content>${yField.value}<#else>0</#if>;
+
+		<#-- add onChange to set coordinates to ZERO -->
+		$("#${entry.idEntry}_address").change( function()
+			{
+				// set x and y to 0
+				document.getElementById(idEntry + "_x").value = 0;
+				document.getElementById(idEntry + "_y").value = 0;
+			}
+		);
+
+		$( '#${entry.idEntry}_address' ).keypress( function(event) {
+			if (event.keyCode == '13') { // Enter button
+			     event.preventDefault(  );
+			     $('#${entry.idEntry}_gmap_button').click();
+			}
+		});
+		gmap_directory( x, y, idEntry, "#i18n{module.directory.googlemaps.button_address}" ); 
+	} );
+	
+</script>
+<noscript>#i18n{module.directory.googlemaps.javascript.disabled}</noscript>
