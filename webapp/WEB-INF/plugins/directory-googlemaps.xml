@@ -4,7 +4,7 @@
     <!-- Plugin Informations -->
 	<name>directory-googlemaps</name>
 	<class>fr.paris.lutece.plugins.directory.modules.googlemaps.service.DirectoryGoogleMapsPlugin</class>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<description>module.directory.googlemaps.module.description</description>
 	<documentation/>
 	<installation/>
