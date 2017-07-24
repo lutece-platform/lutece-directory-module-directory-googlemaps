@@ -9,7 +9,7 @@
     <groupId>fr.paris.lutece.plugins</groupId>
     <artifactId>module-directory-googlemaps</artifactId>
     <packaging>lutece-plugin</packaging>
-    <version>1.0.3</version>
+    <version>1.0.4-SNAPSHOT</version>
     <name>Lutece directory google map module</name>
     <repositories>
         <repository>
@@ -44,6 +44,6 @@
         <connection>scm:git:https://github.com/lutece-platform/lutece-directory-module-directory-googlemaps.git</connection>
         <developerConnection>scm:git:https://github.com/lutece-platform/lutece-directory-module-directory-googlemaps.git</developerConnection>
         <url>https://github.com/lutece-platform/lutece-directory-module-directory-googlemaps.git</url>
-      <tag>lutece-directory-module-directory-googlemaps-1.0.3</tag>
+      <tag>HEAD</tag>
   </scm>
 </project>
